@@ -11,7 +11,7 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        displpayName: {
+        displayName: {
           allowNull: false,
           type: Sequelize.STRING,
           field: 'display_name',
