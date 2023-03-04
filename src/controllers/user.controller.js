@@ -3,23 +3,25 @@ const userService = require('../services/user.service');
 
 const secret = process.env.JWT_SECRET;
 const jwtConfig = {
-  expiresIn: '7d',
+  expiresIn: '15min',
   algorithm: 'HS256',
 };
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await userService.login(email, password);
-  
-  if (!user) { // testando se o usuário não existe
-    return res.status(400).send({ message: 'Invalid fields' });
+const createUser = async (req, res) => {
+  const { displayName, email, password } = req.body;
+  const response = await userService.createUser(displayName, email, password);
+
+  if (response.type) {
+    return res.status(400).send({ message: response.message }); 
   }
+  
+  const newUserId = response.dataValues.id;
 
-  const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
+  const token = jwt.sign({ data: { userId: newUserId } }, secret, jwtConfig);
 
-  res.status(200).send({ token }); // se existir, retorna o token
+  res.status(201).send({ token });
 };
 
 module.exports = {
-  login,
+  createUser,
 };

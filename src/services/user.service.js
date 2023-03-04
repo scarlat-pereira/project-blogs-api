@@ -1,11 +1,15 @@
-const { User } = require('../models');
+// const { User } = require('../models');
 
-const login = async (email, password) => {
- const user = await User.findOne({ where: { email, password } });
+// const createUser = async (email, password, displayName, _image) => {
+//   try {
+//     const newUser = await User.create({ email, password, displayName });
+//     return newUser;
+//   } catch (e) {
+//     return { type: 'error', message: e.message };
+//   }
+// };
 
- return user;
-};
-
-module.exports = {
-  login,
-};
+// module.exports = {
+//   login,
+//   createUser,
+// };
