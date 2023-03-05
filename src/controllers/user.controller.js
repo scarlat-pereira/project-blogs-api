@@ -8,16 +8,14 @@ const jwtConfig = {
 };
 
 const createUser = async (req, res) => {
-  const { displayName, email, password } = req.body;
-  const response = await userService.createUser(displayName, email, password);
-
-  if (response.type) {
-    return res.status(400).send({ message: response.message }); 
+  const { displayName, email, password, image } = req.body;
+  const response = await userService.createUser(displayName, email, password, image);
+  // console.log(response);
+  if (response === email) {
+    return res.status(409).send({ message: 'User already registered' }); 
   }
-  
-  const newUserId = response.dataValues.id;
 
-  const token = jwt.sign({ data: { userId: newUserId } }, secret, jwtConfig);
+  const token = jwt.sign({ email }, secret, jwtConfig);
 
   res.status(201).send({ token });
 };

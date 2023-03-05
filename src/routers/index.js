@@ -1,7 +1,7 @@
 const routerLogin = require('./loginRouter');
-// const routerUser = require('./userRouter');
+const routerUser = require('./userRouter');
 
 module.exports = {
   routerLogin,
-  // routerUser,
+  routerUser,
 };

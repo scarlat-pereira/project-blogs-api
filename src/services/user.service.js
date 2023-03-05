@@ -1,15 +1,17 @@
-// const { User } = require('../models');
+const { User } = require('../models');
 
-// const createUser = async (email, password, displayName, _image) => {
-//   try {
-//     const newUser = await User.create({ email, password, displayName });
-//     return newUser;
-//   } catch (e) {
-//     return { type: 'error', message: e.message };
-//   }
-// };
+const createUser = async (displayName, email, password, image) => {
+  const user = await User.findOne({ where: { email }, attributes: { exclude: ['password'] } });
+  if (user) {
+    // console.log(user);
+    return email;
+  }
+  if (!user) {
+  const newUser = await User.create({ displayName, email, password, image });
+    return newUser;
+  }
+};
 
-// module.exports = {
-//   login,
-//   createUser,
-// };
+module.exports = {
+  createUser,
+};
