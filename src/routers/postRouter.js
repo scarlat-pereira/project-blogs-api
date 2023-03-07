@@ -6,5 +6,6 @@ const auth = require('../middlewares/validateJWT');
 const routerPost = express.Router();
 
 routerPost.get('/', auth, postController.getPosts);
+routerPost.get('/:id', auth, postController.getPostById);
 
 module.exports = routerPost;

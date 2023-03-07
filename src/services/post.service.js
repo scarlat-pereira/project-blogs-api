@@ -10,6 +10,18 @@ const getPosts = () => {
   return posts;
 };
 
+const getPostById = (id) => {
+  const posts = BlogPost.findOne({
+    where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+
+  });
+  return posts;
+};
+
 module.exports = {
   getPosts,
+  getPostById,
 };
