@@ -9,13 +9,14 @@ const jwtConfig = {
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
-  const response = await userService.createUser(displayName, email, password, image);
-  // console.log(response);
-  if (response === email) {
+  const user = await userService.createUser(displayName, email, password, image);
+  // console.log(user);
+  if (user === email) {
     return res.status(409).send({ message: 'User already registered' }); 
   }
 
-  const token = jwt.sign({ email }, secret, jwtConfig);
+  const newUserId = user.dataValues.id;
+  const token = jwt.sign({ data: { userId: newUserId } }, secret, jwtConfig);
 
   res.status(201).send({ token });
 };
