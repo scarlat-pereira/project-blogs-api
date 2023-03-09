@@ -8,6 +8,7 @@ const routerPost = express.Router();
 
 routerPost.post('/', auth, middlewareValidatePost, postController.createPostBlog);
 routerPost.delete('/:id', auth, postController.deletePost);
+routerPost.get('/search', auth, postController.searchPosts);
 routerPost.put('/:id', auth, middlewareValidateUpdated, postController.updatedById);
 routerPost.get('/', auth, postController.getPosts);
 routerPost.get('/:id', auth, postController.getPostById);
