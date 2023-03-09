@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const message = 'message required fields are missing';
+const message = 'Some required fields are missing';
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required().messages({
